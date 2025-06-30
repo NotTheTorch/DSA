@@ -44,3 +44,15 @@ let root = new Node(10);
 root.left = new Node(20);
 root.right = new Node(80);
 root.right.left = new Node(5);
+
+//Recursion Implentation
+
+function sizeBT(root)
+{
+    if(root === null)
+        return 0;
+
+    return 1 + sizeBT(root.left) + sizeBT(root.right);
+}
+
+console.log(sizeBT(root));
