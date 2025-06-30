@@ -40,39 +40,41 @@ root.right.right = new Node(7);
 
 function zigzag(node)
 {
-    if(node === null)
-        return node;
+    let arr = [];
+    const oddStack = new Stack();
+    const evenStack = new Stack();
+    oddStack.push(node);
+    let leftToRight = true;
 
-    const arr = [];
-    const queue = new Queue();
-    queue.enqueue(node);
-
-    while(queue.front <= queue.end)
+    while(oddStack.arr.length !== 0 || evenStack.arr.length !== 0)
     {
-        let levelSize = queue.end - queue.front + 1;
-        let level = [];
-
-        for(let i = 0; i < levelSize; i++)
+        if(leftToRight)
         {
-            let curr = queue.dequeue();
-            level.push(curr.data);
+            while(oddStack.arr.length)
+            {
+                let curr = oddStack.pop();
+                arr.push(curr.data);
 
-            if(levelSize % 2 == 0)
-            {
                 if(curr.left)
-                    queue.enqueue(curr.left);
+                    evenStack.push(curr.left);
                 if(curr.right)
-                    queue.enqueue(curr.right);
-            }
-            else
-            {
-                if(curr.right)
-                    queue.enqueue(curr.right);
-                if(curr.left)
-                    queue.enqueue(curr.left);
+                    evenStack.push(curr.right);
             }
         }
-        arr.push(level);
+        else
+        {
+            while(evenStack.arr.length)
+            {
+                let curr = evenStack.pop();
+                arr.push(curr.data);
+
+                if(curr.left)
+                    oddStack.push(curr.right);
+                if(curr.right)
+                    oddStack.push(curr.left);
+            }
+        }
+        leftToRight = !leftToRight;
     }
     return arr;
 }
