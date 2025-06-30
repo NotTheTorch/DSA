@@ -1,31 +1,19 @@
-class Queue
+class Stack
 {
     constructor()
     {
         this.arr = [];
-        this.front = -1;
-        this.end = -1;
     }
 
-    enqueue(x)
+    push(x)
     {
-        if(this.arr.length === 0)
-        {
-            this.arr.push(x);
-            this.front = 0;
-            this.end = 0;
-            return;
-        }
         this.arr.push(x);
-        this.end++;
-        return;
     }
 
-    dequeue()
+    pop()
     {
-        let result = this.arr[this.front];
-        this.front++;
-        return result;
+        let value = this.arr.pop();
+        return value;
     }
 }
 
@@ -40,7 +28,53 @@ class Node
 }
 
 
-let root = new Node(10);
-root.left = new Node(20);
-root.right = new Node(80);
-root.right.left = new Node(5);
+let root = new Node(1);
+root.left = new Node(2);
+root.right = new Node(3);
+root.left.left = new Node(4);
+root.left.right = new Node(5);
+root.right.left = new Node(6);
+root.right.right = new Node(7);
+
+//Implementation
+
+function zigzag(node)
+{
+    if(node === null)
+        return node;
+
+    const arr = [];
+    const queue = new Queue();
+    queue.enqueue(node);
+
+    while(queue.front <= queue.end)
+    {
+        let levelSize = queue.end - queue.front + 1;
+        let level = [];
+
+        for(let i = 0; i < levelSize; i++)
+        {
+            let curr = queue.dequeue();
+            level.push(curr.data);
+
+            if(levelSize % 2 == 0)
+            {
+                if(curr.left)
+                    queue.enqueue(curr.left);
+                if(curr.right)
+                    queue.enqueue(curr.right);
+            }
+            else
+            {
+                if(curr.right)
+                    queue.enqueue(curr.right);
+                if(curr.left)
+                    queue.enqueue(curr.left);
+            }
+        }
+        arr.push(level);
+    }
+    return arr;
+}
+
+console.log(zigzag(root));
