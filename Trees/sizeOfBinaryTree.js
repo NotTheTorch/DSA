@@ -56,3 +56,25 @@ function sizeBT(root)
 }
 
 console.log(sizeBT(root));
+
+//Interative Implementation
+
+function iterative_sizeBT(root)
+{
+    const queue = new Queue();
+    queue.enqueue(root);
+
+    while(queue.front <= queue.end)
+    {
+        let curr = queue.dequeue();
+
+        if(curr.left)
+            queue.enqueue(curr.left);
+
+        if(curr.right)
+            queue.enqueue(curr.right);
+    }
+    return queue.arr.length;
+}
+
+console.log(iterative_sizeBT(root));
