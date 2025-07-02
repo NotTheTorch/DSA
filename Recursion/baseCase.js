@@ -10,6 +10,7 @@ function factorial(n)
 
 console.log(factorial(5));
 
+//Implementation Recursive solution on fibonacci series
 function fibonacci(n)
 {
     if(n === 1 || n === 0)
@@ -18,4 +19,4 @@ function fibonacci(n)
     return fibonacci(n-1) + fibonacci(n-2);
 }
 
-console.log(fibonacci(10));
+console.log(fibonacci(6));
