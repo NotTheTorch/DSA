@@ -31,3 +31,34 @@ function insert(root,value)
 
     return root;
 }
+
+function iterativeInsert(root,value)
+{
+    let prev = null;
+    let curr = root;
+    let temp = new Node(value);
+
+    while(curr !== null)
+    {
+        prev = curr;
+
+        if(curr.data === value)
+            return curr;
+
+        if(curr.data > value)
+            curr = curr.left;
+        else
+            curr = curr.right;
+    }
+
+    if(prev === null)
+        return temp;
+    else if(prev.data > value)
+        prev.left = temp;
+    else
+        prev.right = temp;
+
+    return root;
+}
+
+console.log(iterativeInsert(head,7));

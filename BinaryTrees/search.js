@@ -30,4 +30,20 @@ function search(root,value)
         return search(root.right,value);
 }
 
-console.log(search(head,10));
+function iterativeSearch(root,value)
+{
+    let curr = root;
+    while(curr !== null)
+    {
+        if(curr.data === value)
+            return 1;
+
+        if(curr.data > value)
+            curr = curr.left;
+        else
+            curr = curr.right;
+    }
+    return 0;
+}
+
+console.log(iterativeSearch(head,16));
